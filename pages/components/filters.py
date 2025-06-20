@@ -10,7 +10,7 @@ class FiltersComponent(Base):
         super().__init__(driver)
 
     # Locators
-    dropdown_menu = "//div[@class='Dropdown-module__TgnVuW__dropdown__input']"
+    dropdown_menu = "//div[@class='Dropdown-module__TgnVuW__dropdown']"
 
     filter_only_for_subscription = "//div[@aria-labelledby='labelFor-only_litres_subscription_arts']"
     filter_only_for_abonement = "//div[@aria-labelledby='labelFor-only_abonement_arts']"
@@ -81,7 +81,8 @@ class FiltersComponent(Base):
         print('Click filter only for abonement')
 
     def click_filter_high_score_only(self):
-        self.get_filter_high_score_only().click()
+        element = self.get_filter_high_score_only()
+        self.driver.execute_script("arguments[0].click();", element)
         print('Click filter high score only')
 
     def click_filter_discount_only(self):
@@ -124,11 +125,15 @@ class FiltersComponent(Base):
 
     def click_filter_popular_books(self):
         self.get_dropdown_menu().click()
+        WebDriverWait(self.driver, 5).until(
+            EC.element_to_be_clickable(('xpath', '//div[contains(@class, "dropdown__menu")]')))
         self.get_filter_popular_books().click()
         print('Click filter popular books')
 
     def click_filter_new_books(self):
         self.get_dropdown_menu().click()
+        WebDriverWait(self.driver, 5).until(
+            EC.element_to_be_clickable(('xpath', '//div[contains(@class, "dropdown__menu")]')))
         self.get_filter_new_books().click()
         print('Click filter new books')
 

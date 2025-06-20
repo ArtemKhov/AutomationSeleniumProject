@@ -89,8 +89,8 @@ class CatalogPage(Base):
         self.filters.click_filter_high_score_only()
         self.filters.click_filter_new_books()
 
-        # доп. время ожидания в 1 секунду после применения фильтров
-        time.sleep(1)
+        # доп. время ожидания в 2 секунду после применения фильтров
+        time.sleep(2)
         self.click_first_book()
 
         if len(self.driver.window_handles) > 1:
