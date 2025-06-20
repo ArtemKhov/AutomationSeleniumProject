@@ -2,6 +2,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from base.base_class import Base
+from pages.catalog_page import CatalogPage
 
 
 class CartPage(Base):
@@ -31,5 +32,7 @@ class CartPage(Base):
         """Подтверждение выбранных книг в корзине для покупки"""
 
         self.get_current_url()
+        self.assert_url('https://www.litres.ru/my-books/cart/')
         self.click_buy_button()
+        self.get_screenshot()
 

@@ -39,6 +39,32 @@ def test_buy_book_from_light_reading_genre():
     # p = PaymentPage(driver)
     # p.complete_payment()
 
-
     print('Finish Test: Buy book from light reading genre')
+    driver.quit()
+
+
+# @pytest.mark.run(order=3)
+def test_buy_book_from_history_genre():
+    """Тест по покупке книги включает:
+    авторизацию, переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, переход к покупке книги."""
+
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option('detach', True)
+    options.add_argument("--guest")
+    options.add_argument('--disable-notifications')
+    options.add_argument('--disable-popup-blocking')
+    driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+
+    print('Start Test: Buy book from history genre')
+
+    mp = MainPage(driver)
+    mp.navigate_to_catalog()
+
+    ct = CatalogPage(driver)
+    ct.select_history_book()
+
+    cp = CartPage(driver)
+    cp.proceed_to_buy()
+
+    print('Finish Test: Buy book from history genre')
     driver.quit()

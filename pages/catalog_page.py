@@ -1,4 +1,5 @@
 import time
+from traceback import print_tb
 
 from selenium.common import ElementClickInterceptedException
 from selenium.webdriver.support.wait import WebDriverWait
@@ -18,7 +19,10 @@ class CatalogPage(Base):
 
     # Locators
     genre_light_reading = "(//a[@class='GenresPage-module__y6ZFYq__genresPage__genreItem__title'])[1]"
-    genre_word = "//span[@class='PageHeader-module__k0W69G__title__text']"
+    genre_history = "(//a[@class='GenresPage-module__y6ZFYq__genresPage__genreItem__title'])[3]"
+    genre_word_light_reading = "//span[@class='PageHeader-module__k0W69G__title__text']"
+    genre_word_history = "//div[@class='DashboardHeader-module__zqgeEG__title__inner']"
+    bestsellers_history_book = "//h2[@id='artsSliderTitle-:R11ktij6:']"
     first_book = "(//div[@class='Art-module__3wrtfG__content Art-module__3wrtfG__content_full'])[1]"
     adult_confirm_button = "//div[contains(text(), 'Да, мне есть 18')]"
     cart_added_button = "//button[@data-testid='book__addToCartButton']"
@@ -30,8 +34,17 @@ class CatalogPage(Base):
     def get_genre_light_reading(self):
         return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(('xpath', self.genre_light_reading)))
 
-    def get_genre_word(self):
-        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(('xpath', self.genre_word)))
+    def get_genre_history(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(('xpath', self.genre_history)))
+
+    def get_genre_word_light_reading(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(('xpath', self.genre_word_light_reading)))
+
+    def get_genre_word_history(self):
+        return WebDriverWait(self.driver, 30).until(EC.element_to_be_clickable(('xpath', self.genre_word_history)))
+
+    def get_bestsellers_history_book(self):
+        return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(('xpath', self.bestsellers_history_book)))
 
     def get_first_book(self):
         return WebDriverWait(self.driver, 30).until(EC.presence_of_element_located(('xpath', self.first_book)))
@@ -53,6 +66,14 @@ class CatalogPage(Base):
     def click_genre_light_reading(self):
         self.get_genre_light_reading().click()
         print('Click genre light reading')
+
+    def click_genre_history(self):
+        self.get_genre_history().click()
+        print('Click genre history')
+
+    def click_bestsellers_history_book(self):
+        self.get_bestsellers_history_book().click()
+        print('Click bestsellers history book')
 
     def click_first_book(self):
         self.get_first_book().click()
@@ -81,13 +102,60 @@ class CatalogPage(Base):
 
         self.get_current_url()
         self.click_genre_light_reading()
-        self.assert_word(self.get_genre_word(), 'легкое чтение')
-        self.filters.click_filter_only_for_subscription()
-        self.filters.click_filter_only_for_abonement()
-        self.filters.click_filter_textbook()
-        self.filters.click_filter_language_ru()
-        self.filters.click_filter_high_score_only()
-        self.filters.click_filter_new_books()
+        self.assert_word(self.get_genre_word_light_reading(), 'легкое чтение')
+
+        # выбор фильтров
+        try:
+            self.filters.click_filter_only_for_subscription()
+            self.filters.click_filter_only_for_abonement()
+            self.filters.click_filter_textbook()
+            self.filters.click_filter_language_ru()
+            self.filters.click_filter_high_score_only()
+            self.filters.click_filter_new_books()
+        except TimeoutError:
+            print('Фильтры недоступны')
+
+        # доп. время ожидания в 2 секунду после применения фильтров
+        time.sleep(2)
+        self.click_first_book()
+
+        if len(self.driver.window_handles) > 1:
+            self.driver.switch_to.window(self.driver.window_handles[1])
+        else:
+            raise Exception("Нет второй вкладки для переключения!")
+
+        try:
+            self.click_cart_added_button()
+        except ElementClickInterceptedException:
+            print(f'Попалась книга с контентом 18+')
+            self.click_adult_confirm_button()
+            self.click_cart_added_button()
+
+        try:
+            self.click_popup_info_close_button()
+        except Exception as e:
+            print(f'Попап не появился: {e}')
+
+        self.click_cart_menu_button()
+        self.assert_url('https://www.litres.ru/my-books/cart/')
+
+
+    def select_history_book(self):
+        """Выбор книги из жанра: 'История - бестселлеры и новинки' и добавление её в корзину"""
+
+        self.get_current_url()
+        self.click_genre_history()
+        self.assert_word(self.get_genre_word_history(), 'история')
+        self.click_bestsellers_history_book()
+        self.get_current_url()
+
+        # выбор фильтров
+        try:
+            self.filters.click_filter_only_for_subscription()
+            self.filters.click_filter_audiobook()
+        except TimeoutError:
+            print('Фильтры недоступны')
+
 
         # доп. время ожидания в 2 секунду после применения фильтров
         time.sleep(2)

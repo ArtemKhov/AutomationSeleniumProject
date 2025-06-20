@@ -1,3 +1,5 @@
+import time
+
 from faker import Faker
 
 from selenium.webdriver.support.wait import WebDriverWait
@@ -92,6 +94,7 @@ class PaymentPage(Base):
         self.get_current_url()
         self.click_new_card()
         self.click_continue_button()
+        self.get_screenshot()
         self.input_card_number(number)
         self.input_expiry_date(date)
         self.input_card_cvc(cvc)
