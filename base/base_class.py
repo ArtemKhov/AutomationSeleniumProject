@@ -15,14 +15,14 @@ class Base:
         print(f'Current URL: {get_url}')
 
     """Method: assert word"""
-    def assert_word(self, word, result):
+    def assert_word(self, word, result: str):
         value_word = word.text
         assert value_word == result, 'Значения не совпадают'
         print('Correct value word')
 
 
     """Method: assert URL"""
-    def assert_url(self, result):
+    def assert_url(self, result: str):
         WebDriverWait(self.driver, 10).until(EC.url_to_be(result))
         get_url = self.driver.current_url
         assert get_url == result, 'URL не совпадают'
