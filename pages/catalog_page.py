@@ -9,7 +9,7 @@ from pages.components.filters import FiltersComponent
 
 
 class CatalogPage(Base):
-    """Взаимодействие с элементами на странице жанров книг"""
+    """Взаимодействие с элементами на странице каталога"""
 
     def __init__(self, driver):
         super().__init__(driver)
