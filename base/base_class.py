@@ -20,7 +20,6 @@ class Base:
         assert value_word == result, 'Значения не совпадают'
         print('Correct value word')
 
-
     """Method: assert URL"""
     def assert_url(self, result: str):
         WebDriverWait(self.driver, 10).until(EC.url_to_be(result))
@@ -28,6 +27,21 @@ class Base:
         assert get_url == result, 'URL не совпадают'
         print('Correct URL')
 
+    """Method: assert Any word in results"""
+    def assert_any_word_in_results(self, locator, expected_word):
+        """Проверяет, что хотя бы один элемент содержит ожидаемый текст"""
+        elements = WebDriverWait(self.driver, 30).until(
+            EC.presence_of_all_elements_located(('xpath', locator))
+        )
+
+        found = False
+        for element in elements:
+            if element.text == expected_word:
+                found = True
+                break
+
+        assert found, f'Не найдено ни одного элемента с текстом "{expected_word}"'
+        print(f'Correct: найден элемент с текстом "{expected_word}"')
 
     """Method: Screenshot"""
     def get_screenshot(self):

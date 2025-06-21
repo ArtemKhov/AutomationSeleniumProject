@@ -5,9 +5,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.main_page import MainPage
 
 
-def test_search_popular_book():
-    """Тест по поиску популярной книги включает:
-    авторизацию, переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, переход к покупке книги."""
+def test_search_book():
+    """Тест, что по искомому слову находит хотя бы одну книгу"""
 
     options = webdriver.ChromeOptions()
     options.add_experimental_option('detach', True)
@@ -19,7 +18,7 @@ def test_search_popular_book():
     print('Start Test: Search popular book')
 
     mp = MainPage(driver)
-    mp.search_popular_book()
+    mp.search_book('Ведьмак')
 
     print('Finish Test: Search popular book')
     driver.quit()
