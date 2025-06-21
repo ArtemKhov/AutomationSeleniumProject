@@ -26,7 +26,6 @@ class CatalogPage(Base):
     genre_word_business = "//div[@class='DashboardHeader-module__zqgeEG__title__inner']"
     bestsellers_history_book = "//h2[@id='artsSliderTitle-:R11ktij6:']"
     top_20_business_book = "//h2[@id='artsSliderTitle-:R21ktij6:']"
-    # first_book = "(//div[@class='Art-module__3wrtfG__content Art-module__3wrtfG__content_full'])[1]"
     first_book = "(//a[@class='Art-module__3wrtfG__content__link'])[1]"
     adult_confirm_button = "//div[contains(text(), 'Да, мне есть 18')]"
     cart_added_button = "//button[@data-testid='book__addToCartButton']"
