@@ -3,12 +3,13 @@ import pytest
 
 @pytest.fixture()
 def set_up():
-    print('\nStart test')
+    print("\nStart test")
     yield
-    print('\nFinish test')
+    print("\nFinish test")
 
-@pytest.fixture(scope='module')
+
+@pytest.fixture(scope="module")
 def set_group():
-    print('\nEnter system')
+    print("\nEnter system")
     yield
-    print('\nExit system')
+    print("\nExit system")

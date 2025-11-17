@@ -13,16 +13,19 @@ from pages.payment_page import PaymentPage
 @pytest.mark.run(order=1)
 def test_buy_book_from_light_reading_genre(set_up, set_group):
     """Тест по покупке книги включает:
-    авторизацию, переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, переход к покупке книги."""
+    авторизацию, переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, переход к покупке книги.
+    """
 
     options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
+    options.add_experimental_option("detach", True)
     options.add_argument("--guest")
-    options.add_argument('--disable-notifications')
-    options.add_argument('--disable-popup-blocking')
-    driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    driver = webdriver.Chrome(
+        options=options, service=ChromeService(ChromeDriverManager().install())
+    )
 
-    print('Start Test: Buy book from light reading genre')
+    print("Start Test: Buy book from light reading genre")
 
     # login = LoginPage(driver)
     # login.authorization()
@@ -39,23 +42,26 @@ def test_buy_book_from_light_reading_genre(set_up, set_group):
     # p = PaymentPage(driver)
     # p.complete_payment()
 
-    print('Finish Test: Buy book from light reading genre')
+    print("Finish Test: Buy book from light reading genre")
     driver.quit()
 
 
 @pytest.mark.run(order=3)
 def test_buy_book_from_history_genre(set_up):
     """Тест по покупке книги включает:
-    переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, нажатие кнопки покупки"""
+    переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, нажатие кнопки покупки
+    """
 
     options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
+    options.add_experimental_option("detach", True)
     options.add_argument("--guest")
-    options.add_argument('--disable-notifications')
-    options.add_argument('--disable-popup-blocking')
-    driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    driver = webdriver.Chrome(
+        options=options, service=ChromeService(ChromeDriverManager().install())
+    )
 
-    print('Start Test: Buy book from history genre')
+    print("Start Test: Buy book from history genre")
 
     mp = MainPage(driver)
     mp.navigate_to_catalog()
@@ -66,23 +72,26 @@ def test_buy_book_from_history_genre(set_up):
     cp = CartPage(driver)
     cp.proceed_to_buy()
 
-    print('Finish Test: Buy book from history genre')
+    print("Finish Test: Buy book from history genre")
     driver.quit()
 
 
 @pytest.mark.run(order=2)
 def test_buy_book_from_business_genre(set_up):
     """Тест по покупке книги включает:
-    переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, нажатие кнопки покупки"""
+    переход в каталог с жанрами книг, выбор книги по установленным фильтрам, переход в корзину, нажатие кнопки покупки
+    """
 
     options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
+    options.add_experimental_option("detach", True)
     options.add_argument("--guest")
-    options.add_argument('--disable-notifications')
-    options.add_argument('--disable-popup-blocking')
-    driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    driver = webdriver.Chrome(
+        options=options, service=ChromeService(ChromeDriverManager().install())
+    )
 
-    print('Start Test: Buy book from business genre')
+    print("Start Test: Buy book from business genre")
 
     mp = MainPage(driver)
     mp.navigate_to_catalog()
@@ -93,5 +102,5 @@ def test_buy_book_from_business_genre(set_up):
     cp = CartPage(driver)
     cp.proceed_to_buy()
 
-    print('Finish Test: Buy book from business genre')
+    print("Finish Test: Buy book from business genre")
     driver.quit()

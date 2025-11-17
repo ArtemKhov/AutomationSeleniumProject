@@ -9,16 +9,19 @@ from pages.main_page import MainPage
 
 def test_delete_book_from_cart():
     """Тест по удалению книги из корзины:
-    переход в каталог с жанрами книг, выбор книги, переход в корзину, удаление выбранной книги из корзины."""
+    переход в каталог с жанрами книг, выбор книги, переход в корзину, удаление выбранной книги из корзины.
+    """
 
     options = webdriver.ChromeOptions()
-    options.add_experimental_option('detach', True)
+    options.add_experimental_option("detach", True)
     options.add_argument("--guest")
-    options.add_argument('--disable-notifications')
-    options.add_argument('--disable-popup-blocking')
-    driver = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-popup-blocking")
+    driver = webdriver.Chrome(
+        options=options, service=ChromeService(ChromeDriverManager().install())
+    )
 
-    print('Start Test: Delete book from Cart')
+    print("Start Test: Delete book from Cart")
 
     mp = MainPage(driver)
     mp.navigate_to_catalog()
@@ -29,5 +32,5 @@ def test_delete_book_from_cart():
     cp = CartPage(driver)
     cp.delete_book()
 
-    print('Finish Test: Delete book from Cart')
+    print("Finish Test: Delete book from Cart")
     driver.quit()
