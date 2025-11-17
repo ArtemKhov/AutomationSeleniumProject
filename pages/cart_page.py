@@ -12,11 +12,11 @@ class CartPage(Base):
         super().__init__(driver)
 
     # Locators
-    buy_button = "//div[@data-testid='button__content']"
+    buy_button = "(//div[@data-testid='button__content'])[1]"
     delete_book_button = "//button[@data-testid='cart__listDeleteButton']"
     delete_word = "//h3[@class='Modal-module__ckz0XG__content__title']"
-    confirm_delete_button = "//button[@class='Button-module__QumUZq__button Button-module__QumUZq__button_medium Button-module__QumUZq__button_primary Modal-module__ckz0XG__button']"
-    empty_cart_word = "//h2[@class='EmptyState-module__Rus85q__empty__title']"
+    confirm_delete_button = "//button[@class='ad20ffd5 _6a327574 _86ab0c42 _1c540356']"
+    empty_cart_word = "//h2[@class='_93b7d590 _48c9c815 _5a3f2772 _0abecb44 _4e47b39f' and contains(text(), 'Корзина пуста')]"
 
     # Getters
     def get_buy_button(self):

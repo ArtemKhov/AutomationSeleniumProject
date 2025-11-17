@@ -14,7 +14,7 @@ class MainPage(Base):
 
     # Locators
     catalog_button = "//button[@data-testid='header-catalog-button']"
-    all_genres_button = "//div[@class='GenresTreePopup-module__v-7a4a__all-genres']"
+    all_genres_button = "//div[@data-testid='popup__allGenre--button']"
     main_word = "//h1[@id='pageTitle']"
     search_field = "//input[@data-testid='search__input']"
     search_button = "//button[@data-testid='search__button']"

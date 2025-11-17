@@ -17,20 +17,20 @@ class CatalogPage(Base):
 
     # Locators
     genre_light_reading = (
-        "(//a[@class='GenresPage-module__y6ZFYq__genresPage__genreItem__title'])[1]"
+        "(//a[@class='_2ce937fc'])[1]"
     )
     genre_history = (
-        "(//a[@class='GenresPage-module__y6ZFYq__genresPage__genreItem__title'])[3]"
+        "(//a[@class='_2ce937fc'])[3]"
     )
     genre_business_book = (
-        "(//a[@class='GenresPage-module__y6ZFYq__genresPage__genreItem__title'])[4]"
+        "(//a[@class='_2ce937fc'])[4]"
     )
-    genre_word_light_reading = "//span[@class='PageHeader-module__k0W69G__title__text']"
-    genre_word_history = "//div[@class='DashboardHeader-module__zqgeEG__title__inner']"
-    genre_word_business = "//div[@class='DashboardHeader-module__zqgeEG__title__inner']"
-    bestsellers_history_book = "//h2[@id='artsSliderTitle-:R11ktij6:']"
-    top_20_business_book = "//h2[@id='artsSliderTitle-:R21ktij6:']"
-    first_book = "(//a[@class='Art-module__3wrtfG__content__link'])[1]"
+    genre_word_light_reading = "//a[@class='_2ce937fc' and contains(text(), 'Легкое чтение')]"
+    genre_word_history = "//a[@class='_2ce937fc' and contains(text(), 'История')]"
+    genre_word_business = "//a[@class='_2ce937fc' and contains(text(), 'Бизнес-книги')]"
+    bestsellers_history_book = "(//h2[@class='d113beca e3b5eee6'])[1]"
+    top_20_business_book = "(//h2[@class='d113beca e3b5eee6'])[1]"
+    first_book = "(//a[@class='d14d2f6b'])[1]"
     adult_confirm_button = "//div[contains(text(), 'Да, мне есть 18')]"
     cart_added_button = "//button[@data-testid='book__addToCartButton']"
     cart_menu_button = "//div[@id='tab-basket']"
@@ -125,6 +125,7 @@ class CatalogPage(Base):
 
     def click_first_book(self):
         """Открытие страницы с книгой по ссылке"""
+
         element = self.get_first_book()
         url = element.get_attribute("href")
         if url:
@@ -155,7 +156,7 @@ class CatalogPage(Base):
 
         self.get_current_url()
         self.click_genre_light_reading()
-        self.assert_word(self.get_genre_word_light_reading(), "легкое чтение")
+        self.assert_word(self.get_genre_word_light_reading(), "Легкое чтение")
 
         # выбор фильтров
         try:
@@ -164,7 +165,6 @@ class CatalogPage(Base):
             self.filters.click_filter_textbook()
             self.filters.click_filter_language_ru()
             self.filters.click_filter_high_score_only()
-            self.filters.click_filter_new_books()
         except TimeoutError:
             print("Фильтры недоступны")
 
@@ -197,7 +197,7 @@ class CatalogPage(Base):
 
         self.get_current_url()
         self.click_genre_history()
-        self.assert_word(self.get_genre_word_history(), "история")
+        self.assert_word(self.get_genre_word_history(), "История")
         self.click_bestsellers_history_book()
         self.get_current_url()
 
@@ -237,7 +237,7 @@ class CatalogPage(Base):
 
         self.get_current_url()
         self.click_genre_business_book()
-        self.assert_word(self.get_genre_word_business(), "бизнес-книги")
+        self.assert_word(self.get_genre_word_business(), "Бизнес-книги")
         self.click_top_20_business_book()
         self.get_current_url()
 

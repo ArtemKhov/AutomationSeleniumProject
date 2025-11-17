@@ -10,8 +10,7 @@ class FiltersComponent(Base):
         super().__init__(driver)
 
     # Locators
-    dropdown_menu = "//div[@class='Dropdown-module__TgnVuW__dropdown']"
-
+    dropdown_menu = "//div[@class='c9dd87f3']"
     filter_only_for_subscription = (
         "//div[@aria-labelledby='labelFor-only_litres_subscription_arts']"
     )
@@ -27,8 +26,8 @@ class FiltersComponent(Base):
     filter_webtoon = "//input[@id='art_types-webtoon']"
     filter_language_ru = "//input[@id='languages-ru']"
     filter_language_en = "//input[@id='languages-en']"
-    filter_popular_books = "//div[contains(text(), 'Популярные')]"
-    filter_new_books = "//div[contains(text(), 'Новинки')]"
+    filter_popular_books = "//span[@class='_83d85b26 _3c527025 _809602ac bb6c5296' and contains(text(), 'Популярные')]"
+    filter_new_books = "//span[@class='_83d85b26 _3c527025 _809602ac bb6c5296' and contains(text(), 'Новинки')]"
 
     # Getters
     def get_filter_only_for_subscription(self):
@@ -157,7 +156,7 @@ class FiltersComponent(Base):
         self.get_dropdown_menu().click()
         WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable(
-                ("xpath", '//div[contains(@class, "dropdown__menu")]')
+                ("xpath", '//div[contains(@data-testid, "dropDown__sorting--wrapper")]')
             )
         )
         self.get_filter_popular_books().click()
@@ -167,7 +166,7 @@ class FiltersComponent(Base):
         self.get_dropdown_menu().click()
         WebDriverWait(self.driver, 5).until(
             EC.element_to_be_clickable(
-                ("xpath", '//div[contains(@class, "dropdown__menu")]')
+                ("xpath", '//div[contains(@data-testid, "dropDown__sorting--wrapper")]')
             )
         )
         self.get_filter_new_books().click()
