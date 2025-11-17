@@ -12,7 +12,7 @@ class CartPage(Base):
         super().__init__(driver)
 
     # Locators
-    buy_button = "(//div[@data-testid='button__content'])[1]"
+    buy_button = "(//button[@class='ad20ffd5 e46d17bc _86ab0c42 _1f70b464'])[1]"
     delete_book_button = "//button[@data-testid='cart__listDeleteButton']"
     delete_word = "//h3[@class='_93b7d590 be3a862e db46eea7 ca68e3b2' and contains(text(), 'Удаление книги')]"
     confirm_delete_button = "//button[@class='ad20ffd5 _6a327574 _86ab0c42 _1c540356']"
